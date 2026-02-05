@@ -280,6 +280,7 @@ APIテストは [Postman Collection](docs/ZenJP_MVP_API.postman_collection.json)
 - [PHASE2 Action Plan](docs/ZenJP_PHASE2_Action_Plan.md)
 - [PHASE3 Action Plan](docs/ZenJP_PHASE3_Action_Plan.md)
 - [PHASE4 API Design](docs/ZenJP_PHASE4_Part1_API.md)
+- [PHASE5 Implementation Plan](docs/ZenJP_MVP_PHASE5_Implementation_Plan.md)
 - [PHASE6 Implementation Plan](docs/ZenJP_MVP_PHASE6_Implementation_Plan.md)
 
 ### その他
