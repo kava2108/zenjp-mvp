@@ -1,0 +1,169 @@
+{
+  "info": {
+    "_postman_id": "zenjp-mvp-api-collection",
+    "name": "ZenJP MVP API",
+    "description": "日本株スコアリングシステムAPI - MVP版",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "General",
+      "item": [
+        {
+          "name": "Root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": [""]
+            },
+            "description": "APIルート情報を取得"
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["health"]
+            },
+            "description": "API稼働状態確認"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Scores",
+      "item": [
+        {
+          "name": "Toyota (7203)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/7203",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "7203"]
+            },
+            "description": "トヨタ自動車のスコアを取得"
+          },
+          "response": []
+        },
+        {
+          "name": "Sony (6758)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/6758",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "6758"]
+            },
+            "description": "ソニーグループのスコアを取得"
+          },
+          "response": []
+        },
+        {
+          "name": "SoftBank (9984)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/9984",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "9984"]
+            },
+            "description": "ソフトバンクグループのスコアを取得"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Handling",
+      "item": [
+        {
+          "name": "Invalid Code (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/abc",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "abc"]
+            },
+            "description": "不正な銘柄コード - 400エラーをテスト"
+          },
+          "response": []
+        },
+        {
+          "name": "Non-existent Stock (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/0000",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "0000"]
+            },
+            "description": "存在しない銘柄 - 404エラーをテスト"
+          },
+          "response": []
+        },
+        {
+          "name": "Too Short Code (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/72",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "72"]
+            },
+            "description": "短い銘柄コード - 400エラーをテスト"
+          },
+          "response": []
+        },
+        {
+          "name": "Too Long Code (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/score/720300",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "score", "720300"]
+            },
+            "description": "長い銘柄コード - 400エラーをテスト"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

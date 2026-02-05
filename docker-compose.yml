@@ -1,0 +1,65 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14-alpine
+    container_name: zenjp_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-zenjp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-zenjp_mvp}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-zenjp}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - zenjp-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: zenjp_backend
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - zenjp-network
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: zenjp_frontend
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - zenjp-network
+    command: npm run dev
+
+volumes:
+  postgres_data:
+
+networks:
+  zenjp-network:
+    driver: bridge

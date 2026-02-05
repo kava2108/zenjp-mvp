@@ -1,0 +1,1 @@
+# Market average score model

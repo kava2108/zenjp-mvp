@@ -1,0 +1,62 @@
+# ============================================
+# Python / FastAPI
+# ============================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+dist/
+build/
+.env
+.venv/
+venv/
+env/
+
+# SQLite (もしローカルで使う場合)
+*.db
+*.sqlite3
+
+# ============================================
+# Node.js / Next.js / Frontend
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.next/
+out/
+.DS_Store
+
+# Next.js build output
+.next/
+out/
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ============================================
+# OS / Editor
+# ============================================
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+.history/
+
+# JetBrains
+.idea/
+
+# ============================================
+# Logs
+# ============================================
+logs/
+*.log
+*.log.*
