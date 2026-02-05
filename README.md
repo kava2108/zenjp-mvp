@@ -268,6 +268,7 @@ APIテストは [Postman Collection](docs/ZenJP_MVP_API.postman_collection.json)
 ### 要件定義 & 技術設計
 - [要件定義書](docs/ZenJP_MVP_Requirements_v1.1.md) - プロジェクト要件定義
 - [技術設計書](docs/ZenJP_MVP_Technical_Design%20v1.1.md) - 技術設計仕様
+- [実装設計書](docs/ZenJP_MVP_Implementation_Plan_1.md) - 実装計画書
 
 ### API & 技術仕様
 - [API Endpoints](docs/api_endpoints.md) - 完全なAPI仕様
@@ -278,7 +279,7 @@ APIテストは [Postman Collection](docs/ZenJP_MVP_API.postman_collection.json)
 - [Test Report](docs/test-report.md) - テスト実行レポート（PHASE6）
 - [API Security Review](docs/api_security_review.md) - セキュリティレビュー
 
-### 実装計画
+### 実装アクション詳細計画書
 - [PHASE1 Action Plan](docs/ZenJP_PHASE1_Action_Plan.md)
 - [PHASE2 Action Plan](docs/ZenJP_PHASE2_Action_Plan.md)
 - [PHASE3 Action Plan](docs/ZenJP_PHASE3_Action_Plan.md)
