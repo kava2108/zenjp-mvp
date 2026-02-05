@@ -630,75 +630,47 @@ GET /api/score/{stock_code}
 **レスポンス（成功時）:**
 ```json
 {
-  "status": "success",
-  "data": {
     "stock_code": "7203",
     "stock_name": "トヨタ自動車",
-    "date": "2026-02-01",
-    "total_score": 78.5,
+    "total_score": 75.5,
     "rank": "B+",
-    "market_comparison": {
-      "market_average": 50.0,
-      "vs_market": "+28.5",
-      "percentile": 85
-    },
-    "category_scores": {
-      "value": {
-        "score": 82.3,
-        "weight": 0.4,
-        "vs_market": "+32.3"
-      },
-      "growth": {
-        "score": 65.8,
-        "weight": 0.3,
-        "vs_market": "+15.8"
-      },
-      "momentum": {
-        "score": 80.1,
-        "weight": 0.3,
-        "vs_market": "+30.1"
-      }
-    },
-    "market_comparison": {
-      "total_score_diff": 26.5,
-      "market_avg_total_score": 52.0,
-      "percentile": 100,
-      "comment": "市場平均を大きく上回る"
-    },
+    "value_score": 78.2,
+    "growth_score": 65.5,
+    "momentum_score": 78.3,
+    "score_date": "2026-02-09",
     "details": {
-      "per": 12.5,
-      "pbr": 1.15,
-      "dividend_yield": 2.8,
-      "revenue_growth_yoy": 8.5,
-      "rsi": 55.3,
-      "volume_change": 12.5
-    }
-  },
-  "meta": {
-    "timestamp": "2026-02-01T12:00:00+09:00"
-  }
+        "per": 15.53,
+        "per_score": 49.2,
+        "pbr": 2.32,
+        "pbr_score": 54.0,
+        "dividend_yield": 9.66,
+        "dividend_score": 100.0,
+        "revenue_growth_rate": 4.48,
+        "rsi": 55.3,
+        "rsi_score": 100.0,
+        "volume_change_rate": 12.5,
+        "volume_change_score": 70.6
+    },
+    "market_comparison": {
+        "total_diff": 25.5,
+        "value_diff": 28.2,
+        "growth_diff": 15.5,
+        "momentum_diff": 28.3
+    },
+    "updated_at": "2026-02-09T10:30:00"
 }
 ```
 
 **market_comparison フィールドの説明:**
-- `total_score_diff`: 市場平均との差分（+26.5 = 78.5 - 52.0）
-- `market_avg_total_score`: 市場平均スコア（MVP期間中は3銘柄の平均）
-- `percentile`: 3銘柄中の順位を百分率で表示（100% = 1位）
-- `comment`: 自動生成コメント
-  - +20以上: "市場平均を大きく上回る"
-  - +10〜+20: "市場平均を上回る"
-  - -10〜+10: "市場平均並み"
-  - -20〜-10: "市場平均を下回る"
-  - -20未満: "市場平均を大きく下回る"
+- `total_diff`: 総合スコア差分（$\text{total\_score} - 50.0$）
+- `value_diff`: Valueスコア差分（$\text{value\_score} - 50.0$）
+- `growth_diff`: Growthスコア差分（$\text{growth\_score} - 50.0$）
+- `momentum_diff`: Momentumスコア差分（$\text{momentum\_score} - 50.0$）
 
 **レスポンス（エラー時）:**
 ```json
 {
-  "status": "error",
-  "error": {
-    "code": "INVALID_STOCK_CODE",
-    "message": "対象外の銘柄コードです。現在は7203/6758/9984のみ対応しています。"
-  }
+    "detail": "無効な銘柄コードです: 1234"
 }
 ```
 

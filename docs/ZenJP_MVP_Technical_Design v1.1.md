@@ -185,70 +185,78 @@ backend/
 **レスポンス例:**
 ```json
 {
-  "status": "success",
-  "data": {
-    "stock_code": "7203",
-    "stock_name": "トヨタ自動車",
-    "date": "2026-02-01",
-    "total_score": 78.5,
-    "rank": "B+",
-    "updated_at": "2026-02-01T06:15:23+09:00",
-    "market_comparison": {
-      "market_average": 50.0,
-      "vs_market": "+28.5",
-      "percentile": 85
-    },
-    "category_scores": {
-      "value": {
-        "score": 82.3,
-        "weight": 0.4,
-        "vs_market": "+32.3"
-      },
-      "growth": {
-        "score": 65.8,
-        "weight": 0.3,
-        "vs_market": "+15.8"
-      },
-      "momentum": {
-        "score": 80.1,
-        "weight": 0.3,
-        "vs_market": "+30.1"
-      }
-    },
-    "details": {
-      "per": 12.5,
-      "pbr": 1.15,
-      "dividend_yield": 2.8,
-      "revenue_growth_yoy": 8.5,
-      "rsi": 55.3,
-      "volume_change": 12.5
-    }
+  "stock_code": "7203",
+  "stock_name": "トヨタ自動車",
+  "total_score": 75.5,
+  "rank": "B+",
+  "value_score": 78.2,
+  "growth_score": 65.5,
+  "momentum_score": 78.3,
+  "score_date": "2026-02-09",
+  "details": {
+    "per": 15.53,
+    "per_score": 49.2,
+    "pbr": 2.32,
+    "pbr_score": 54.0,
+    "dividend_yield": 9.66,
+    "dividend_score": 100.0,
+    "revenue_growth_rate": 4.48,
+    "rsi": 55.3,
+    "rsi_score": 100.0,
+    "volume_change_rate": 12.5,
+    "volume_change_score": 70.6
   },
-  "meta": {
-    "timestamp": "2026-02-01T12:00:00+09:00"
-  }
+  "market_comparison": {
+    "total_diff": 25.5,
+    "value_diff": 28.2,
+    "growth_diff": 15.5,
+    "momentum_diff": 28.3
+  },
+  "updated_at": "2026-02-09T10:30:00"
 }
 ```
 
 **updated_atの用途:**
-- データがいつ計算されたかを明示
+- 日次スコアの作成日時（daily_scores.created_at）を返却
 - デバッグ時に「最新データか」を即座に判断可能
-- フロントエンドで「最終更新: 2月1日 6:15」と表示
+- フロントエンドで「最終更新: 2月9日 10:30」と表示
 
 **Pydanticスキーマ:**
 ```python
-from datetime import datetime
+from datetime import date
+
+class MarketComparison(BaseModel):
+  total_diff: float
+  value_diff: float
+  growth_diff: float
+  momentum_diff: float
+
+class ScoreDetail(BaseModel):
+  per: float | None
+  per_score: float | None
+  pbr: float | None
+  pbr_score: float | None
+  dividend_yield: float | None
+  dividend_score: float | None
+  revenue_growth_rate: float | None
+  rsi: float | None
+  rsi_score: float | None
+  volume_change_rate: float | None
+  volume_change_score: float | None
+  volume_score: float | None
 
 class ScoreResponse(BaseModel):
-    stock_code: str
-    stock_name: str
-    date: date
-    total_score: float
-    rank: str
-    updated_at: datetime  # 追加
-    market_comparison: MarketComparison
-    category_scores: dict[str, CategoryScore]
-    details: ScoreDetails
+  stock_code: str
+  stock_name: str
+  total_score: float
+  rank: str
+  value_score: float
+  growth_score: float
+  momentum_score: float
+  score_date: date
+  details: ScoreDetail
+  market_comparison: MarketComparison
+  updated_at: str
 ```
 
 ---
@@ -290,12 +298,15 @@ frontend/
 ```python
 # backend/app/schemas/score.py
 class ScoreResponse(BaseModel):
-    stock_code: str
-    stock_name: str
-    date: date
-    total_score: float
-    rank: str
-    updated_at: datetime
+  stock_code: str
+  stock_name: str
+  total_score: float
+  rank: str
+  value_score: float
+  growth_score: float
+  momentum_score: float
+  score_date: date
+  updated_at: str
 ```
 
 **フロントエンド（TypeScript）:**
@@ -304,9 +315,12 @@ class ScoreResponse(BaseModel):
 export interface ScoreResponse {
   stock_code: string;
   stock_name: string;
-  date: string;          // ISO 8601形式
   total_score: number;
   rank: string;
+  value_score: number;
+  growth_score: number;
+  momentum_score: number;
+  score_date: string;    // ISO 8601形式
   updated_at: string;    // ISO 8601形式
 }
 ```
